@@ -6,9 +6,34 @@ using Shop.Web.Data.Entities;
 
 namespace Shop.Web.Data
 {
-    public class MockRepository : IRepository
+    public class MockRepository :  IProductRepository
     {
         public void AddProduct(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task CreateAsync(Product entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(Product entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<Product> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Product> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -39,6 +64,11 @@ namespace Shop.Web.Data
         }
 
         public Task<bool> SaveAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(Product entity)
         {
             throw new NotImplementedException();
         }
