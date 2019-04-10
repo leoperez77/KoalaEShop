@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Shop.Web.Data;
 using Shop.Web.Data.Entities;
 using Shop.Web.Helpers;
+using Shop.Web.Models;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Shop.Web.Controllers
@@ -54,16 +57,37 @@ namespace Shop.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(ProductViewModel view)
         {
             if (ModelState.IsValid)
             {
+                var path = string.Empty;
+
+                if (view.ImageFile != null && view.ImageFile.Length > 0)
+                {
+                    path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\products", view.ImageFile.FileName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await view.ImageFile.CopyToAsync(stream);
+                    }
+                    path = $"~/images/products/{view.ImageFile.FileName}";
+                }
+
+                var product = this.ToProduct(view, path);
+
                 //TODO: Change for the logged in user
                 product.User = await this.userHelper.GetUserByEmailAsync("leonardo_perez@hotmail.com");
-                await productRepository.CreateAsync(product);
+                await productRepository.CreateAsync(view);
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(view);
+        }
+
+        private Product ToProduct(ProductViewModel view, string path)
+        {
+            var p = view as Product;
+            p.ImageUrl = path;
+            return p;
         }
 
         // GET: Products/Edit/5
@@ -79,7 +103,14 @@ namespace Shop.Web.Controllers
             {
                 return NotFound();
             }
-            return View(product);
+
+            var view = this.ToProductViewModel(product);
+            return View(view);
+        }
+
+        private ProductViewModel ToProductViewModel(Product product)
+        {
+            return product as ProductViewModel;
         }
 
         // POST: Products/Edit/5
@@ -87,7 +118,7 @@ namespace Shop.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Product product)
+        public async Task<IActionResult> Edit(int id, ProductViewModel product)
         {
             if (id != product.Id)
             {
