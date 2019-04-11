@@ -7,6 +7,7 @@ namespace Shop.Web.Data.Entities
 {
     public interface IProductRepository:IGenericRepository<Product>
     {
+        IQueryable GetAllWithUsers();
 
     }
 }

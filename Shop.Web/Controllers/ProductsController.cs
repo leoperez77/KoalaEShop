@@ -6,6 +6,7 @@ using Shop.Web.Helpers;
 using Shop.Web.Models;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shop.Web.Controllers
@@ -25,7 +26,7 @@ namespace Shop.Web.Controllers
         // GET: Products
         public IActionResult Index()
         {
-            return View(productRepository.GetAll());
+            return View(productRepository.GetAll().OrderBy(p => p.Name));
         }
 
         // GET: Products/Details/5
@@ -83,12 +84,7 @@ namespace Shop.Web.Controllers
             return View(view);
         }
 
-        private Product ToProduct(ProductViewModel view, string path)
-        {
-            var p = view as Product;
-            p.ImageUrl = path;
-            return p;
-        }
+
 
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -108,19 +104,15 @@ namespace Shop.Web.Controllers
             return View(view);
         }
 
-        private ProductViewModel ToProductViewModel(Product product)
-        {
-            return product as ProductViewModel;
-        }
 
         // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ProductViewModel product)
+        public async Task<IActionResult> Edit(int id, ProductViewModel view)
         {
-            if (id != product.Id)
+            if (id != view.Id)
             {
                 return NotFound();
             }
@@ -129,11 +121,24 @@ namespace Shop.Web.Controllers
             {
                 try
                 {
+                    var path = string.Empty;
+
+                    if (view.ImageFile != null && view.ImageFile.Length > 0)
+                    {
+                        path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\products", view.ImageFile.FileName);
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await view.ImageFile.CopyToAsync(stream);
+                        }
+                        path = $"~/images/products/{view.ImageFile.FileName}";
+                    }
+
+                    var product = ToProduct(view, path);
                     await productRepository.UpdateAsync(product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await productRepository.ExistAsync(product.Id))
+                    if (!await productRepository.ExistAsync(view.Id))
                     {
                         return NotFound();
                     }
@@ -144,7 +149,7 @@ namespace Shop.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(view);
         }
 
         // GET: Products/Delete/5
@@ -175,5 +180,29 @@ namespace Shop.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        private ProductViewModel ToProductViewModel(Product product)
+        {
+            return new ProductViewModel
+            {
+                Id = product.Id,
+                ImageUrl = product.ImageUrl,
+                IsAvailabe = product.IsAvailabe,
+                LastPurchase = product.LastPurchase,
+                LastSale = product.LastSale,
+                Name = product.Name,
+                Price = product.Price,
+                Stock = product.Stock,
+                User = product.User
+            };
+
+        }
+
+        private Product ToProduct(ProductViewModel view, string path)
+        {
+            var p = view as Product;
+            p.ImageUrl = path;
+            return p;
+        }
     }
 }
