@@ -9,6 +9,8 @@ namespace Shop.UiForms.ViewModels
     public class ProductsViewModels:BaseViewModel
     {
         private ObservableCollection<Product> productsCollection;
+        private ApiService apiService;
+        private bool isRefreshing;
 
         public ObservableCollection<Product> ProductsCollection
         {
@@ -16,8 +18,15 @@ namespace Shop.UiForms.ViewModels
             set { this.SetValue(ref this.productsCollection, value); }
         }
 
-        private ApiService apiService;
         
+
+        public bool IsRefreshing
+        {
+            get { return this.isRefreshing; }
+            set { this.SetValue(ref this.isRefreshing, value); }
+        }
+
+
         public ProductsViewModels()
         {
             this.apiService = new ApiService();
@@ -26,10 +35,13 @@ namespace Shop.UiForms.ViewModels
 
         private async void LoadProducts()
         {
+            this.IsRefreshing = true;
             var response = await this.apiService.GetListAsync<Product>(
                 "https://koalaeshop.azurewebsites.net",
                 "/api",
                 "/products");
+
+            this.IsRefreshing = false;
 
             if (!response.IsSuccess)
             {

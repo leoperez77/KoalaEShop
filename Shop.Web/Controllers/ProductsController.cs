@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.Web.Data;
 using Shop.Web.Data.Entities;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Web.Controllers
 {
+    
     public class ProductsController : Controller
     {
         private readonly IUserHelper userHelper;
@@ -34,20 +36,21 @@ namespace Shop.Web.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             var product = await productRepository.GetByIdAsync(id.GetValueOrDefault());
             
             if (product == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             return View(product);
         }
 
         // GET: Products/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -85,8 +88,8 @@ namespace Shop.Web.Controllers
 
                 var product = this.ToProduct(view, path);
 
-                //TODO: Change for the logged in user
-                product.User = await this.userHelper.GetUserByEmailAsync("leonardo_perez@hotmail.com");
+                
+                product.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 await productRepository.CreateAsync(view);
                 return RedirectToAction(nameof(Index));
             }
@@ -96,17 +99,18 @@ namespace Shop.Web.Controllers
 
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             var product = await productRepository.GetByIdAsync(id.GetValueOrDefault());
             if (product == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             var view = this.ToProductViewModel(product);
@@ -123,7 +127,7 @@ namespace Shop.Web.Controllers
         {
             if (id != view.Id)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             if (ModelState.IsValid)
@@ -154,7 +158,7 @@ namespace Shop.Web.Controllers
                 {
                     if (!await productRepository.ExistAsync(view.Id))
                     {
-                        return NotFound();
+                        return new NotFoundViewResult("ProductNotFound");
                     }
                     else
                     {
@@ -167,6 +171,7 @@ namespace Shop.Web.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -218,5 +223,11 @@ namespace Shop.Web.Controllers
             p.ImageUrl = path;
             return p;
         }
+
+        public IActionResult ProductNotFound()
+        {
+            return this.View();
+        }
+
     }
 }

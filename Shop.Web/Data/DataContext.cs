@@ -15,6 +15,14 @@ namespace Shop.Web.Data
 
         public DbSet<Country> Countries { get; set; }
 
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
+        public DbSet<OrderDetailTemp> OrderDetailTemps { get; set; }
+
+        public DbSet<City> Cities { get; set; }
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
@@ -25,6 +33,17 @@ namespace Shop.Web.Data
 
             modelBuilder.Entity<Product>()
                 .Property(b => b.Price).HasColumnType("money");
+
+            //Deshabilitar el borrado en cascada
+            var cascadeFKs = modelBuilder.Model
+                .G­etEntityTypes()
+                .SelectMany(t => t.GetForeignKeys())
+                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Casca­de);
+                foreach (var fk in cascadeFKs)
+                {
+                    fk.DeleteBehavior = DeleteBehavior.Restr­ict;
+                }
+
         }
     }
 }

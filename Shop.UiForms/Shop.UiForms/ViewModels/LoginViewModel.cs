@@ -20,6 +20,12 @@ namespace Shop.UiForms.ViewModels
             }
         }
 
+        public LoginViewModel()
+        {
+            this.Email = "leonardo_perez@hotmail.com";
+            this.Password = "123456";
+        }
+
         private async void Login()
         {
             if(string.IsNullOrEmpty(Email))
