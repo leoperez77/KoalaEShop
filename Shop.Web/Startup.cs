@@ -29,6 +29,10 @@ namespace Shop.Web
         {
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
+                //Habilitar confirmación del registro
+                cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                cfg.SignIn.RequireConfirmedEmail = true;
+
                 cfg.User.RequireUniqueEmail = true;
                 cfg.Password.RequireDigit = false;
                 cfg.Password.RequiredUniqueChars = 0;
@@ -36,7 +40,9 @@ namespace Shop.Web
                 cfg.Password.RequireNonAlphanumeric = false;
                 cfg.Password.RequireUppercase = false;
                 cfg.Password.RequiredLength = 6;
-            }).AddEntityFrameworkStores<DataContext>();
+            })
+            .AddDefaultTokenProviders()
+            .AddEntityFrameworkStores<DataContext>();
 
             services.AddAuthentication()
             .AddCookie()
@@ -61,7 +67,7 @@ namespace Shop.Web
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IOrderRepository, OrderRepository>();
-
+            services.AddScoped<IMailHelper, MailHelper>();
 
             //services.AddScoped<IRepository, MockRepository>();
 
