@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace Shop.UiForms.ViewModels
 {
-    public class ProductsViewModels:BaseViewModel
+    public class ProductsViewModel:BaseViewModel
     {
         private ObservableCollection<Product> productsCollection;
         private ApiService apiService;
@@ -27,7 +27,7 @@ namespace Shop.UiForms.ViewModels
         }
 
 
-        public ProductsViewModels()
+        public ProductsViewModel()
         {
             this.apiService = new ApiService();
             this.LoadProducts();
@@ -36,10 +36,18 @@ namespace Shop.UiForms.ViewModels
         private async void LoadProducts()
         {
             this.IsRefreshing = true;
+            //var response = await this.apiService.GetListAsync<Product>(
+            //    "https://koalaeshop.azurewebsites.net",
+            //    "/api",
+            //    "/products");
+
+            var url = Application.Current.Resources["UrlAPI"].ToString();
             var response = await this.apiService.GetListAsync<Product>(
-                "https://koalaeshop.azurewebsites.net",
+                url,
                 "/api",
-                "/products");
+                "/Products",
+                "bearer",
+                MainViewModel.GetInstance().Token.Token);
 
             this.IsRefreshing = false;
 

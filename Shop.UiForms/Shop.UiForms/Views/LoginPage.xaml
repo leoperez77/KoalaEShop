@@ -19,7 +19,13 @@
                     Text="{Binding Password}" 
                        Placeholder="Enter your password"                       
                        ></Entry>
-                <Button Text="Login" Command="{Binding LoginCommand}" />
+                <ActivityIndicator
+                	IsRunning="{Binding IsRunning}">
+                </ActivityIndicator>
+                <Button Text="Login" 
+                        Command="{Binding LoginCommand}" 
+                        IsEnabled="{Binding IsEnabled}"
+                        />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

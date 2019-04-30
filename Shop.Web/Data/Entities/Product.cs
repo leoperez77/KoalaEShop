@@ -45,7 +45,7 @@ namespace Shop.Web.Data.Entities
                     return null;
                 }
 
-                return $"https://koalaeshop.azurewebsites.net{this.ImageUrl.Substring(1)}";
+                return $"https://kseshop.azurewebsites.net{this.ImageUrl.Substring(1)}";
             }
         }
 

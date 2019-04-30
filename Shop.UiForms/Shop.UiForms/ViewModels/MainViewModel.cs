@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shop.Common.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,7 +11,10 @@ namespace Shop.UiForms.ViewModels
 
         public LoginViewModel Login { get; set; }
 
-        public ProductsViewModels Products { get; set; }
+        public ProductsViewModel Products { get; set; }
+
+        public TokenResponse Token { get; set; }
+
         public MainViewModel()
         {
             //this.Login = new LoginViewModel();

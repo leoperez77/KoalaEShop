@@ -10,8 +10,8 @@ using Shop.Web.Data;
 namespace Shop.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190423204032_ConfirmationEmail")]
-    partial class ConfirmationEmail
+    [Migration("20190430194806_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

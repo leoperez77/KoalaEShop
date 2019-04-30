@@ -138,9 +138,10 @@ namespace Shop.Web.Controllers
 
                     if (view.ImageFile != null && view.ImageFile.Length > 0)
                     {
-                        path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\products", view.ImageFile.FileName);
                         var guid = Guid.NewGuid().ToString();
                         var file = $"{guid}.jpg";
+                        path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\products", file);
+                        
 
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
