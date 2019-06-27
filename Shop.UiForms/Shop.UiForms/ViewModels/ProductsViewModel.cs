@@ -2,6 +2,7 @@
 using Shop.Common.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace Shop.UiForms.ViewModels
@@ -62,7 +63,7 @@ namespace Shop.UiForms.ViewModels
             }
 
             var obj = (List<Product>)response.Result;
-            this.ProductsCollection = new ObservableCollection<Product>(obj);
+            this.ProductsCollection = new ObservableCollection<Product>(obj.OrderBy(p => p.Name));
         }
     }
 }

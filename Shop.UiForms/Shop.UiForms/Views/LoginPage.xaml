@@ -7,6 +7,12 @@
     <ContentPage.Content>
         <ScrollView BindingContext="{Binding Login}" >
             <StackLayout Padding="8">
+
+                <Image
+                	HeightRequest="150"
+                	Source="shoplogo">
+                </Image>
+
                 <Label Text="Email"/>
                 <Entry 
                     Keyboard="Email"
@@ -20,12 +26,19 @@
                        Placeholder="Enter your password"                       
                        ></Entry>
                 <ActivityIndicator
-                	IsRunning="{Binding IsRunning}">
+                	IsRunning="{Binding IsRunning}"
+                    VerticalOptions="CenterAndExpand">
+                    
                 </ActivityIndicator>
                 <Button Text="Login" 
                         Command="{Binding LoginCommand}" 
                         IsEnabled="{Binding IsEnabled}"
-                        />
+                        VerticalOptions="CenterAndExpand"
+                        TextColor="White"
+                        BackgroundColor="DarkViolet"
+                        BorderRadius="23"                	
+                	    HeightRequest="46"
+                    />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
