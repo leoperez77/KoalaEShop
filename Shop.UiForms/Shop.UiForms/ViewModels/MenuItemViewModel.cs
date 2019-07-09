@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Shop.Common.Helpers;
 using Shop.Common.Models;
 using Shop.UiForms.Views;
 using System;
@@ -25,9 +26,16 @@ namespace Shop.UiForms.ViewModels
                     await App.Navigator.PushAsync(new SetupPage());
                     break;
                 default:
-                    MainViewModel.GetInstance().Login = new LoginViewModel();
-                    Application.Current.MainPage = new NavigationPage(new LoginPage());
-                    break;
+                    {
+                        Settings.IsRemember = false;
+                        Settings.Token = string.Empty;
+                        Settings.UserEmail = string.Empty;
+                        Settings.UserPassword = string.Empty;
+
+                        MainViewModel.GetInstance().Login = new LoginViewModel();
+                        Application.Current.MainPage = new NavigationPage(new LoginPage());
+                        break;
+                    }
             }
         }
 

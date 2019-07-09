@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:Shop.UiForms.Helpers"
              x:Class="Shop.UiForms.Views.LoginPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="Login">
+             Title="{i18n:Translate Login}">
     <ContentPage.Content>
         <ScrollView BindingContext="{Binding Login}" >
             <StackLayout Padding="8">
@@ -13,24 +14,36 @@
                 	Source="shoplogo">
                 </Image>
 
-                <Label Text="Email"/>
+                <Label Text="{i18n:Translate Email}"/>
                 <Entry 
                     Keyboard="Email"
                     Text="{Binding Email}" 
-                       Placeholder="Enter your email"                       
+                       Placeholder="{i18n:Translate EmailPlaceholder}"                       
                        ></Entry>
-                <Label Text="Password"/>
+                <Label Text="{i18n:Translate Password}"/>
                 <Entry 
                     IsPassword="True"
                     Text="{Binding Password}" 
-                       Placeholder="Enter your password"                       
+                       Placeholder="{i18n:Translate PasswordPlaceholder}"                       
                        ></Entry>
+                <StackLayout
+	                HorizontalOptions="Center"
+	                Orientation="Horizontal">
+                                    <Label
+    	                Text="{i18n:Translate Remember}"
+    	                VerticalOptions="Center">
+                                    </Label>
+                                    <Switch
+    	                IsToggled="{Binding IsRemember}">
+                    </Switch>
+                </StackLayout>
+
                 <ActivityIndicator
                 	IsRunning="{Binding IsRunning}"
                     VerticalOptions="CenterAndExpand">
                     
                 </ActivityIndicator>
-                <Button Text="Login" 
+                <Button Text="{i18n:Translate Login}" 
                         Command="{Binding LoginCommand}" 
                         IsEnabled="{Binding IsEnabled}"
                         VerticalOptions="CenterAndExpand"

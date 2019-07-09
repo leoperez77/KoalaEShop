@@ -1,4 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
+using Shop.Common.Helpers;
 using Shop.Common.Models;
 using Shop.Common.Services;
 using Shop.UiForms.Views;
@@ -14,6 +16,8 @@ namespace Shop.UiForms.ViewModels
         private bool isRunning;
         private bool isEnabled;
         private readonly ApiService apiService;
+
+        public bool IsRemeber { get; set; }
 
         public bool IsRunning
         {
@@ -37,21 +41,28 @@ namespace Shop.UiForms.ViewModels
         {
             this.apiService = new ApiService();
             this.IsEnabled = true;
-            this.Email = "leonardo_perez@hotmail.com";
-            this.Password = "123456";
+            //this.Email = "leonardo_perez@hotmail.com";
+            //this.Password = "123456";
+            this.IsRemeber = true;
         }
 
         private async void Login()
         {
             if (string.IsNullOrEmpty(this.Email))
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "You must enter an email.", "Accept");
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error, 
+                    Languages.EmailError, 
+                    Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(this.Password))
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "You must enter a password.", "Accept");
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error, 
+                    Languages.PesswordError,
+                    Languages.Accept);
                 return;
             }
 
@@ -76,7 +87,10 @@ namespace Shop.UiForms.ViewModels
 
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Email or password incorrect.", "Accept");
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.LoginError,
+                    Languages.Accept);
                 return;
             }
 
@@ -87,6 +101,13 @@ namespace Shop.UiForms.ViewModels
             mainViewModel.UserPassword = this.Password;
             mainViewModel.Products = new ProductsViewModel();
             //await Application.Current.MainPage.Navigation.PushAsync(new ProductsPage());
+
+            Settings.IsRemember = this.IsRemeber;
+            Settings.UserEmail = this.Email;
+            Settings.UserPassword = this.Password;
+            Settings.Token = JsonConvert.SerializeObject(token);
+
+
             Application.Current.MainPage = new MasterPage();
 
         }

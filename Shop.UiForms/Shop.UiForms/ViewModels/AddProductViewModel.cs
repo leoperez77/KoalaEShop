@@ -94,7 +94,7 @@ namespace Shop.UiForms.ViewModels
             }
 
             var newProduct = (Product)response.Result;
-            MainViewModel.GetInstance().Products.ProductsCollection.Add(newProduct);
+            MainViewModel.GetInstance().Products.AddProductToList(newProduct);
 
             this.IsRunning = false;
             this.IsEnabled = true;
