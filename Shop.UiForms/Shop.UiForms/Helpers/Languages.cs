@@ -32,6 +32,8 @@ namespace Shop.Common.Helpers
         public static string Password => Resource.Password;
         public static string PasswordPlaceholder => Resource.PasswordPlaceholder;
         public static string Remember => Resource.Remember;
+
+        public static string RegisterNewUser => Resource.RegisterNewUser;
     }
 
 }

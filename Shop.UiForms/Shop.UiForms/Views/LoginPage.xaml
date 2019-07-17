@@ -43,15 +43,38 @@
                     VerticalOptions="CenterAndExpand">
                     
                 </ActivityIndicator>
-                <Button Text="{i18n:Translate Login}" 
-                        Command="{Binding LoginCommand}" 
-                        IsEnabled="{Binding IsEnabled}"
-                        VerticalOptions="CenterAndExpand"
-                        TextColor="White"
-                        BackgroundColor="DarkViolet"
-                        BorderRadius="23"                	
-                	    HeightRequest="46"
-                    />
+                <StackLayout
+	                Orientation="Horizontal">
+                                    <Button
+    	                BackgroundColor="Navy"
+    	                BorderRadius="23"
+    	                Command="{Binding LoginCommand}"
+    	                HeightRequest="46"
+    	                HorizontalOptions="FillAndExpand"
+    	                IsEnabled="{Binding IsEnabled}"
+    	                Text="{i18n:Translate Login}"
+    	                TextColor="White">
+                                    </Button>
+                                <Button
+    	                BackgroundColor="Purple"
+    	                BorderRadius="23"
+    	                Command="{Binding RegisterCommand}"
+    	                HeightRequest="46"
+    	                HorizontalOptions="FillAndExpand"
+    	                IsEnabled="{Binding IsEnabled}"
+    	                Text="{i18n:Translate RegisterNewUser}"
+    	                TextColor="White">  
+                    </Button>
+                </StackLayout>
+                <Label
+	HorizontalOptions="Center"
+	Text="Forgot my password"
+	TextColor="Navy">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RememberPasswordCommand }"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -26,11 +26,17 @@ namespace Shop.UiForms.ViewModels
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
 
 
+        public RegisterViewModel Register { get; set; }
+
+        public RememberPasswordViewModel RememberPassword { get; set; }
+
         public TokenResponse Token { get; set; }
 
         public string UserEmail { get; set; }
 
         public string UserPassword { get; set; }
+
+        public User User { get; set; }
 
 
         public ICommand AddProductCommand { get { return new RelayCommand(GoAddProduct); } }
@@ -74,6 +80,13 @@ namespace Shop.UiForms.ViewModels
                     Icon = "ic_insert_chart",
                     PageName = "SetupPage",
                     Title = "Setup"
+                },
+
+                 new Menu
+                {
+                    Icon = "ic_insert_chart",
+                    PageName = "ProfilePage",
+                    Title = "Modify user"
                 },
 
                 new Menu
