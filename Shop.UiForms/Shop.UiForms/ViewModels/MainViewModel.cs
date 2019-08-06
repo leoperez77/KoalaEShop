@@ -10,17 +10,18 @@ using System.Windows.Input;
 
 namespace Shop.UiForms.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : BaseViewModel
     {
         private static MainViewModel instance;
+        private User user;
 
         public LoginViewModel Login { get; set; }
 
         public ProductsViewModel Products { get; set; }
 
 
-        public AddProductViewModel AddProduct{ get; set; }
-        
+        public AddProductViewModel AddProduct { get; set; }
+
         public EditProductViewModel EditProduct { get; set; }
 
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
@@ -30,13 +31,21 @@ namespace Shop.UiForms.ViewModels
 
         public RememberPasswordViewModel RememberPassword { get; set; }
 
+        public ProfileViewModel Profile { get; set; }
+
+        public ChangePasswordViewModel ChangePassword { get; set; }
+
         public TokenResponse Token { get; set; }
 
         public string UserEmail { get; set; }
 
         public string UserPassword { get; set; }
 
-        public User User { get; set; }
+        public User User
+        {
+            get => user;
+            set => this.SetValue(ref this.user, value);
+        }
 
 
         public ICommand AddProductCommand { get { return new RelayCommand(GoAddProduct); } }
@@ -56,7 +65,7 @@ namespace Shop.UiForms.ViewModels
 
         public static MainViewModel GetInstance()
         {
-            if(instance==null)
+            if (instance == null)
             {
                 return new MainViewModel();
             }

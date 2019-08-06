@@ -139,12 +139,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Shop.UiForms\Shop.UiForms.csproj">
-      <Project>{6602B12A-D164-437A-9849-E7413B7F84F5}</Project>
-      <Name>Shop.UiForms</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_exit_to_app.png" />
   </ItemGroup>
   <ItemGroup>
