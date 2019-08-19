@@ -2696,14 +2696,14 @@ namespace Shop.UIClassic.Android
 			// aapt resource value: 0x7f09009c
 			public const int loginButton = 2131296412;
 			
-			// aapt resource value: 0x7f0900b2
-			public const int masked = 2131296434;
+			// aapt resource value: 0x7f0900b6
+			public const int masked = 2131296438;
 			
 			// aapt resource value: 0x7f0900a3
 			public const int media_actions = 2131296419;
 			
-			// aapt resource value: 0x7f0900b0
-			public const int message = 2131296432;
+			// aapt resource value: 0x7f0900b4
+			public const int message = 2131296436;
 			
 			// aapt resource value: 0x7f090031
 			public const int middle = 2131296305;
@@ -2713,6 +2713,9 @@ namespace Shop.UIClassic.Android
 			
 			// aapt resource value: 0x7f090028
 			public const int multiply = 2131296296;
+			
+			// aapt resource value: 0x7f0900b2
+			public const int nameTextView = 2131296434;
 			
 			// aapt resource value: 0x7f090093
 			public const int navigation_header_container = 2131296403;
@@ -2749,6 +2752,15 @@ namespace Shop.UIClassic.Android
 			
 			// aapt resource value: 0x7f09004d
 			public const int pin = 2131296333;
+			
+			// aapt resource value: 0x7f0900b3
+			public const int priceTextView = 2131296435;
+			
+			// aapt resource value: 0x7f0900b1
+			public const int productImageView = 2131296433;
+			
+			// aapt resource value: 0x7f0900b0
+			public const int productsListView = 2131296432;
 			
 			// aapt resource value: 0x7f090006
 			public const int progress_circular = 2131296262;
@@ -2954,8 +2966,8 @@ namespace Shop.UIClassic.Android
 			// aapt resource value: 0x7f090016
 			public const int view_offset_helper = 2131296278;
 			
-			// aapt resource value: 0x7f0900b1
-			public const int visible = 2131296433;
+			// aapt resource value: 0x7f0900b5
+			public const int visible = 2131296437;
 			
 			// aapt resource value: 0x7f09003c
 			public const int withText = 2131296316;
@@ -3188,19 +3200,25 @@ namespace Shop.UIClassic.Android
 			public const int notification_template_part_time = 2130968631;
 			
 			// aapt resource value: 0x7f040038
-			public const int select_dialog_item_material = 2130968632;
+			public const int ProducstPage = 2130968632;
 			
 			// aapt resource value: 0x7f040039
-			public const int select_dialog_multichoice_material = 2130968633;
+			public const int ProductRow = 2130968633;
 			
 			// aapt resource value: 0x7f04003a
-			public const int select_dialog_singlechoice_material = 2130968634;
+			public const int select_dialog_item_material = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int support_simple_spinner_dropdown_item = 2130968635;
+			public const int select_dialog_multichoice_material = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int tooltip = 2130968636;
+			public const int select_dialog_singlechoice_material = 2130968636;
+			
+			// aapt resource value: 0x7f04003d
+			public const int support_simple_spinner_dropdown_item = 2130968637;
+			
+			// aapt resource value: 0x7f04003e
+			public const int tooltip = 2130968638;
 			
 			static Layout()
 			{
